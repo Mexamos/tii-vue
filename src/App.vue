@@ -1,12 +1,12 @@
 <template>
   <div id="tii">
-    <div id="test-interface-imitator-wrapeer" class="tii-right-position">
+    <div id="test-interface-imitator-wrapeer" :class="togglePositionClass" v-show="visability">
 
       <div class="tii-header">
-        <div class="tii-img-toggle-position-wrapper">
+        <div class="tii-img-toggle-position-wrapper" @click="toggle_position = !toggle_position ? true : false">
           <img src="./assets/scroll-vertical-arrows.png" id="tii-img-toggle-position">
         </div>
-        <div class="tii-roll-up-wrapper" title="Roll up plugin">
+        <div class="tii-roll-up-wrapper" title="Roll up plugin" @click="visability = false">
           <img src="./assets/roll-up.png" id="tii-roll-up">
         </div>
       </div>
@@ -68,7 +68,7 @@
 
     </div>
 
-    <div class="tii-expand" title="Expand plugin">
+    <div v-show="!visability" class="tii-expand" title="Expand plugin" @click="visability = true">
       <img src="./assets/expand.png" id="tii-img-expand">
     </div>
   </div>
@@ -82,16 +82,22 @@ export default {
   name: 'app',
   data() {
     return {
-      inner_element_listners: []
+      inner_element_listners: [],
+      visability: true,
+      toggle_position: true
+    }
+  },
+  computed: {
+    togglePositionClass() {
+      if(this.toggle_position) return 'tii-right-position'
+      else return 'tii-left-position'
     }
   },
   mounted() {
     console.log('window', window.getAllEventListeners())
   },
   methods: {
-    testClick() {
-      console.log('testClick')
-    }
+
   }
 }
 </script>
